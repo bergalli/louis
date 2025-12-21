@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/HUD.tscn" id="2_hud"]
+[ext_resource type="PackedScene" path="res://scenes/props/Diamond.tscn" id="3_diamond"]
+[ext_resource type="Script" path="res://scripts/LevelFinish.gd" id="4_finish"]
+[ext_resource type="PackedScene" path="res://scenes/props/Grotte.tscn" id="5_grotte"]
+[ext_resource type="PackedScene" path="res://scenes/props/Stalactite.tscn" id="6_stalactite"]
+[ext_resource type="PackedScene" path="res://scenes/props/Stalagmiite.tscn" id="7_stalagmiite"]
+[ext_resource type="PackedScene" path="res://scenes/props/Tornado.tscn" id="8_tornado"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_finish"]
+size = Vector2(100, 100)
+
+[node name="Level2" type="Node2D"]
+
+[node name="Terrain" type="StaticBody2D" parent="."]
+
+[node name="Floor" type="CollisionPolygon2D" parent="Terrain"]
+polygon = PackedVector2Array(0, 500, 400, 500, 500, 400, 700, 400, 800, 500, 1100, 500, 1200, 600, 1700, 600, 2000, 500, 2500, 500, 2500, 1100, 0, 1100)
+
+[node name="Polygon2D" type="Polygon2D" parent="Terrain"]
+color = Color(0.76, 0.7, 0.5, 1)
+polygon = PackedVector2Array(0, 500, 400, 500, 500, 400, 700, 400, 800, 500, 1100, 500, 1200, 600, 1700, 600, 2000, 500, 2500, 500, 2500, 1100, 0, 1100)
+
+[node name="Grotte" parent="." instance=ExtResource("5_grotte")]
+position = Vector2(1450, 590)
+
+[node name="Stalactite" parent="Grotte" instance=ExtResource("6_stalactite")]
+position = Vector2(-50, -80)
+
+[node name="Stalactite2" parent="Grotte" instance=ExtResource("6_stalactite")]
+position = Vector2(50, -80)
+
+[node name="Stalagmiite" parent="Grotte" instance=ExtResource("7_stalagmiite")]
+position = Vector2(0, 10)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(100, 450)
+
+[node name="HUD" parent="." instance=ExtResource("2_hud")]
+
+[node name="Diamond" parent="." instance=ExtResource("3_diamond")]
+position = Vector2(1450, 550)
+
+[node name="Tornado" parent="." instance=ExtResource("8_tornado")]
+position = Vector2(950, 500)
+
+[node name="FinishArea" type="Area2D" parent="."]
+position = Vector2(2300, 450)
+script = ExtResource("4_finish")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishArea"]
+position = Vector2(0, -100)
+shape = SubResource("RectangleShape2D_finish")
+
+[connection signal="body_entered" from="FinishArea" to="FinishArea" method="_on_body_entered"]

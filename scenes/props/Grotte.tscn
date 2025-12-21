@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_cave"]
+
+[node name="Grotte" type="Node2D"]
+
+[node name="Back" type="Sprite2D" parent="."]
+modulate = Color(0.05, 0.05, 0.05, 1)
+scale = Vector2(300, 200)
+texture = SubResource("CanvasTexture_cave")
+
+[node name="Top" type="StaticBody2D" parent="."]
+position = Vector2(0, -100)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Top"]
+polygon = PackedVector2Array(-150, 20, 50, 20, 50, 0, -150, 0)
+
+[node name="ColorRect" type="ColorRect" parent="Top"]
+offset_left = -150.0
+offset_right = 50.0
+offset_bottom = 20.0
+color = Color(0.2, 0.15, 0.1, 1)
+
+[node name="ExitPath" type="Label" parent="."]
+offset_left = 60.0
+offset_top = -20.0
+offset_right = 160.0
+offset_bottom = 6.0
+text = "SORTIE ->"
+
+
+[node name="Entry" type="Label" parent="."]
+offset_left = -140.0
+offset_top = -80.0
+offset_right = -40.0
+offset_bottom = -54.0
+text = "GROTTE"
+

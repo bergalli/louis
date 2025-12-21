@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 ]
+
+[ext_resource type="Script" path="res://scripts/Saboteur.gd" id="1_script"]
+[ext_resource type="Texture2D"  path="res://icon.svg" id="2_sprite"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_saboteur"]
+radius = 15.0
+height = 60.0
+
+[node name="Saboteur" type="Area2D"]
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.4, 0.6)
+texture = ExtResource("2_sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_saboteur")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+

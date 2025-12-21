@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_tremplin"]
+
+[node name="Tremplin" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.4, 0.4, 0.4, 1)
+scale = Vector2(100, 20)
+texture = SubResource("CanvasTexture_tremplin")
+skew = 0.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-50, 10, 50, -10, 50, 10)
+
