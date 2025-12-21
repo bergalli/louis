@@ -21,6 +21,11 @@ func next_level():
 		level_start_diamonds = total_diamonds
 		level_changed.emit(current_level)
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/levels/Level" + str(current_level) + ".tscn")
+	else:
+		if total_diamonds >= max_levels:
+			get_tree().call_deferred("change_scene_to_file", "res://scenes/VictoryScreen.tscn")
+		else:
+			get_tree().call_deferred("change_scene_to_file", "res://scenes/DefeatScreen.tscn")
 
 func reset_level_diamonds():
 	total_diamonds = level_start_diamonds
