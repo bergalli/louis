@@ -33,9 +33,6 @@ position = Vector2(100, 450)
 [node name="Diamond" parent="." instance=ExtResource("3_diamond")]
 position = Vector2(1350, 350)
 
-[node name="Martian" parent="." instance=ExtResource("9_martian")]
-position = Vector2(900, 480)
-
 [node name="Martian2" parent="." instance=ExtResource("9_martian")]
 position = Vector2(1800, 480)
 

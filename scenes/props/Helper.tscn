@@ -36,8 +36,7 @@ offset_left = -25.0
 offset_top = -45.0
 offset_right = 25.0
 offset_bottom = -22.0
-text = \"HELP\"
+text = "HELP"
 horizontal_alignment = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-
