@@ -71,5 +71,6 @@ func explode():
 	die()
 
 func die():
+	GameManager.reset_level_diamonds()
 	get_tree().call_deferred("reload_current_scene")
 
