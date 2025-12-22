@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/HUD.gd" id="1_script"]
 
 [node name="HUD" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_script")
 
 [node name="Control" type="Control" parent="."]
@@ -28,4 +29,55 @@ offset_top = 50.0
 offset_right = 150.0
 offset_bottom = 76.0
 text = "Niveau: 1"
+
+[node name="TimerLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 46.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 24
+text = "Temps: 60"
+horizontal_alignment = 2
+
+[node name="PauseMenu" type="ColorRect" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.470588)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PauseMenu/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Control/PauseMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "PAUSE"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Control/PauseMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Reprendre"
+
+[node name="QuitButton" type="Button" parent="Control/PauseMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quitter"
 

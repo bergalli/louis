@@ -9,6 +9,8 @@ extends CharacterBody2D
 @export var speed_per_diamond = 50.0
 @export var acceleration_per_diamond = 100.0
 
+@onready var smoke_particles = $SmokeParticles
+
 var base_speed = 400.0
 var base_acceleration = 800.0
 var is_launched = false
@@ -24,8 +26,22 @@ func _on_diamond_collected(_count):
 	update_stats()
 
 func update_stats():
-	speed = base_speed + (GameManager.total_diamonds * speed_per_diamond)
-	acceleration = base_acceleration + (GameManager.total_diamonds * acceleration_per_diamond)
+	var effective_diamonds = GameManager.total_diamonds
+	# Au niveau 9, on ignore le bonus des diamants pour que ça aille "vite comme sans diamants"
+	if GameManager.current_level >= GameManager.max_levels:
+		effective_diamonds = 0
+		
+	speed = base_speed + (effective_diamonds * speed_per_diamond)
+	acceleration = base_acceleration + (effective_diamonds * acceleration_per_diamond)
+	
+	if smoke_particles:
+		# Plus on a de diamants, plus la fumée est grosse et rapide
+		var smoke_factor = float(effective_diamonds) / float(GameManager.max_levels)
+		
+		smoke_particles.scale_amount_min = 2.0 + (smoke_factor * 4.0)
+		smoke_particles.scale_amount_max = 5.0 + (smoke_factor * 8.0)
+		smoke_particles.initial_velocity_min = 20.0 + (smoke_factor * 40.0)
+		smoke_particles.initial_velocity_max = 50.0 + (smoke_factor * 80.0)
 
 func mark_for_explosion():
 	if not is_launched:
@@ -67,6 +83,13 @@ func _physics_process(delta):
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
+		# Orienter la fumée vers l'arrière de la direction du mouvement
+		if direction > 0:
+			smoke_particles.position.x = -45
+			smoke_particles.direction.x = -1
+		elif direction < 0:
+			smoke_particles.position.x = 45
+			smoke_particles.direction.x = 1
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 
@@ -90,4 +113,3 @@ func explode():
 func die():
 	GameManager.reset_level_diamonds()
 	get_tree().call_deferred("reload_current_scene")
-
