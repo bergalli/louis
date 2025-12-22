@@ -86,3 +86,4 @@ text = "MENU PRINCIPAL"
 [connection signal="pressed" from="RestartButton" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="MenuButton" to="." method="_on_main_menu_pressed"]
 
+
