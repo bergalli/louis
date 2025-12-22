@@ -6,9 +6,26 @@ extends CharacterBody2D
 @export var gravity = 1200.0
 @export var jump_force = -500.0
 @export var rotation_speed = 3.0
+@export var speed_per_diamond = 50.0
+@export var acceleration_per_diamond = 100.0
 
+var base_speed = 400.0
+var base_acceleration = 800.0
 var is_launched = false
 var launch_y_threshold = 0.0 # Hauteur minimale à atteindre pour exploser
+
+func _ready():
+	base_speed = speed
+	base_acceleration = acceleration
+	GameManager.diamond_collected.connect(_on_diamond_collected)
+	update_stats()
+
+func _on_diamond_collected(_count):
+	update_stats()
+
+func update_stats():
+	speed = base_speed + (GameManager.total_diamonds * speed_per_diamond)
+	acceleration = base_acceleration + (GameManager.total_diamonds * acceleration_per_diamond)
 
 func mark_for_explosion():
 	if not is_launched:

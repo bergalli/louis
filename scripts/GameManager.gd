@@ -35,5 +35,4 @@ func reset_game():
 	total_diamonds = 0
 	level_start_diamonds = 0
 	current_level = 1
-	get_tree().call_deferred("change_scene_to_file", "res://scenes/levels/Level1.tscn")
 
