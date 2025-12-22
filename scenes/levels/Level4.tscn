@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/props/Grotte.tscn" id="5_grotte"]
 [ext_resource type="PackedScene" path="res://scenes/props/Stalactite.tscn" id="6_stalactite"]
 [ext_resource type="PackedScene" path="res://scenes/props/Stalagmiite.tscn" id="7_stalagmiite"]
+[ext_resource type="Texture2D" path="res://assets/textures/worlds/world2/terre_background.jpg" id="8_background"]
 
 [ext_resource type="PackedScene" path="res://scenes/props/Saboteur.tscn" id="9_saboteur"]
 [ext_resource type="PackedScene" path="res://scenes/props/Helper.tscn" id="10_helper"]
@@ -15,6 +16,11 @@
 size = Vector2(100, 100)
 
 [node name="Level4" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(1250, 550)
+scale = Vector2(2.0, 1.3)
+texture = ExtResource("8_background")
 
 [node name="Terrain" type="StaticBody2D" parent="."]
 

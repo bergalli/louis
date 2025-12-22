@@ -1,7 +1,8 @@
 [gd_scene load_steps=8 format=3]
 
 [ext_resource type="Texture2D" path="res://assets/textures/player/Lamborghini-Huracan-Trofeo-EVO2-4.png" id="1_lambo"]
-[ext_resource type="Texture2D" path="res://icon.svg" id="2_icon"]
+[ext_resource type="Texture2D" path="res://assets/textures/collectibles/diamants.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/textures/enemies/saboteur.png" id="3"]
 
 [sub_resource type="GDScript" id="GDScript_mainmenu"]
 script/source = "extends Control
@@ -81,34 +82,29 @@ texture = ExtResource("1_lambo")
 [node name="Diamonds" type="Node2D" parent="Decorations"]
 
 [node name="D1" type="Sprite2D" parent="Decorations/Diamonds"]
-modulate = Color(0, 0.8, 1, 1)
 position = Vector2(200, 200)
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("2_icon")
+texture = ExtResource("2")
 
 [node name="D2" type="Sprite2D" parent="Decorations/Diamonds"]
-modulate = Color(0, 0.8, 1, 1)
 position = Vector2(950, 150)
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_icon")
+texture = ExtResource("2")
 
 [node name="D3" type="Sprite2D" parent="Decorations/Diamonds"]
-modulate = Color(0, 0.8, 1, 1)
 position = Vector2(150, 450)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("2_icon")
+texture = ExtResource("2")
 
 [node name="D4" type="Sprite2D" parent="Decorations/Diamonds"]
-modulate = Color(0, 0.8, 1, 1)
 position = Vector2(1000, 400)
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("2_icon")
+texture = ExtResource("2")
 
 [node name="Thief" type="Sprite2D" parent="Decorations"]
-modulate = Color(1, 0, 0, 1)
 position = Vector2(1180, 500)
-scale = Vector2(0.8, 1.2)
-texture = ExtResource("2_icon")
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3")
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
