@@ -23,7 +23,7 @@ func next_level():
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/levels/Level" + str(current_level) + ".tscn")
 	else:
 		if total_diamonds >= max_levels:
-			get_tree().call_deferred("change_scene_to_file", "res://scenes/VictoryScreen.tscn")
+			get_tree().call_deferred("change_scene_to_file", "res://scenes/Outro.tscn")
 		else:
 			get_tree().call_deferred("change_scene_to_file", "res://scenes/DefeatScreen.tscn")
 

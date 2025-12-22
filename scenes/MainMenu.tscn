@@ -1,11 +1,51 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/player/Lamborghini-Huracan-Trofeo-EVO2-4.png" id="1_lambo"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="2_icon"]
 
 [sub_resource type="GDScript" id="GDScript_mainmenu"]
 script/source = "extends Control
 
+func _ready():
+	# Animation de flottement pour les diamants
+	var diamonds = $Decorations/Diamonds.get_children()
+	for i in range(diamonds.size()):
+		var d = diamonds[i]
+		var tween = create_tween().set_loops()
+		tween.tween_property(d, \"position:y\", d.position.y - 20, 1.0 + i * 0.1).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(d, \"position:y\", d.position.y, 1.0 + i * 0.1).set_trans(Tween.TRANS_SINE)
+	
+	# Animation du voleur qui fait coucou
+	var thief = $Decorations/Thief
+	var t_tween = create_tween().set_loops()
+	t_tween.tween_property(thief, \"position:x\", thief.position.x - 30, 2.0).set_trans(Tween.TRANS_SINE)
+	t_tween.tween_property(thief, \"position:x\", thief.position.x, 2.0).set_trans(Tween.TRANS_SINE)
+
 func _on_start_pressed():
-	get_tree().change_scene_to_file(\"res://scenes/levels/Level1.tscn\")
+	get_tree().change_scene_to_file(\"res://scenes/Intro.tscn\")
 "
+
+[sub_resource type="Animation" id="Animation_bg"]
+resource_name = "bg_pulse"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.1, 0.1, 0.12, 1), Color(0.15, 0.1, 0.15, 1), Color(0.1, 0.1, 0.12, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_menu"]
+_data = {
+"bg_pulse": SubResource("Animation_bg")
+}
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -25,6 +65,51 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.1, 0.1, 0.12, 1)
 
+[node name="Decorations" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Lamborghini" type="Sprite2D" parent="Decorations"]
+position = Vector2(576, 550)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_lambo")
+
+[node name="Diamonds" type="Node2D" parent="Decorations"]
+
+[node name="D1" type="Sprite2D" parent="Decorations/Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(200, 200)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_icon")
+
+[node name="D2" type="Sprite2D" parent="Decorations/Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(950, 150)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_icon")
+
+[node name="D3" type="Sprite2D" parent="Decorations/Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(150, 450)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_icon")
+
+[node name="D4" type="Sprite2D" parent="Decorations/Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(1000, 400)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_icon")
+
+[node name="Thief" type="Sprite2D" parent="Decorations"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(1180, 500)
+scale = Vector2(0.8, 1.2)
+texture = ExtResource("2_icon")
+
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -38,7 +123,10 @@ offset_right = 150.0
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 64
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_font_sizes/font_size = 80
 text = "9Diams"
 horizontal_alignment = 1
 
@@ -49,12 +137,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
+offset_left = -120.0
 offset_top = 20.0
-offset_right = 100.0
-offset_bottom = 70.0
+offset_right = 120.0
+offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 24
 text = "DÉMARRER LE JEU"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_menu")
+}
+autoplay = "bg_pulse"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_pressed"]

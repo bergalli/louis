@@ -1,0 +1,90 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/Intro.gd" id="1_intro"]
+[ext_resource type="Texture2D" path="res://assets/textures/player/Lamborghini-Huracan-Trofeo-EVO2-4.png" id="2_lambo"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="3_icon"]
+
+[node name="Intro" type="Node2D"]
+script = ExtResource("1_intro")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.12, 0.12, 0.14, 1)
+
+[node name="Lamborghini" type="Sprite2D" parent="."]
+position = Vector2(300, 450)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_lambo")
+
+[node name="MuscularGuy" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(1200, 450)
+scale = Vector2(0.8, 1.2)
+texture = ExtResource("3_icon")
+
+[node name="Diamonds" type="Node2D" parent="."]
+
+[node name="D1" type="Sprite2D" parent="Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(250, 400)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_icon")
+
+[node name="D2" type="Sprite2D" parent="Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(280, 380)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_icon")
+
+[node name="D3" type="Sprite2D" parent="Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(310, 400)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_icon")
+
+[node name="D4" type="Sprite2D" parent="Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(240, 430)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_icon")
+
+[node name="D5" type="Sprite2D" parent="Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(270, 420)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_icon")
+
+[node name="D6" type="Sprite2D" parent="Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(330, 430)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_icon")
+
+[node name="D7" type="Sprite2D" parent="Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(220, 460)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_icon")
+
+[node name="D8" type="Sprite2D" parent="Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(280, 460)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_icon")
+
+[node name="D9" type="Sprite2D" parent="Diamonds"]
+modulate = Color(0, 0.8, 1, 1)
+position = Vector2(340, 460)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_icon")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 1052.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 32
+text = "Une belle journée pour ma Lamborghini..."
+horizontal_alignment = 1
+
