@@ -83,7 +83,7 @@ jobs:
           fi
 
           curl -fsSL -o coi-serviceworker.js \
-            https://raw.githubusercontent.com/gzuidhof/coi-serviceworker.js/master/coi-serviceworker.js
+            https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.js
 
           if ! grep -q "coi-serviceworker.js" index.html; then
             sed -i 's#</head>#  <script src="coi-serviceworker.js"></script>\n</head>#' index.html
