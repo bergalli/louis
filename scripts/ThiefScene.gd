@@ -4,8 +4,10 @@ extends Node2D
 @onready var car = $Lamborghini
 @onready var diamonds_container = $Diamonds
 @onready var label = $Label
+@onready var continue_button = $ContinueButton
 
 func _ready():
+	continue_button.hide()
 	animate_thief_scene()
 
 func animate_thief_scene():
@@ -71,6 +73,14 @@ func animate_thief_scene():
 	# 7. Fin de l'histoire
 	tween.tween_interval(1.0)
 	tween.tween_callback(func(): label.text = "À suivre...")
-	tween.tween_interval(2.0)
-	tween.tween_callback(func(): get_tree().change_scene_to_file("res://scenes/VictoryScreen.tscn"))
+	tween.tween_interval(1.0)
+	tween.tween_callback(func(): continue_button.show())
+
+func _on_continue_button_pressed():
+	GameManager.total_diamonds = 12
+	GameManager.level_start_diamonds = 12
+	GameManager.diamond_collected.emit(12)
+	GameManager.current_level = 10
+	GameManager.level_changed.emit(10)
+	get_tree().change_scene_to_file("res://scenes/levels/Level10.tscn")
 

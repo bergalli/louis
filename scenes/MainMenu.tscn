@@ -24,6 +24,9 @@ func _ready():
 
 func _on_start_pressed():
 	get_tree().change_scene_to_file(\"res://scenes/Intro.tscn\")
+
+func _on_level_select_pressed():
+	get_tree().change_scene_to_file(\"res://scenes/LevelSelectMenu.tscn\")
 "
 
 [sub_resource type="Animation" id="Animation_bg"]
@@ -142,6 +145,22 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 24
 text = "DÉMARRER LE JEU"
 
+[node name="LevelSelectButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = 100.0
+offset_right = 120.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "CHOISIR UN NIVEAU"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_menu")
@@ -149,3 +168,4 @@ libraries = {
 autoplay = "bg_pulse"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="LevelSelectButton" to="." method="_on_level_select_pressed"]

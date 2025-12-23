@@ -16,6 +16,11 @@ func collect_diamond():
 		game_won.emit()
 
 func next_level():
+	if current_level == 9:
+		level_start_diamonds = total_diamonds
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/ThiefScene.tscn")
+		return
+
 	if current_level < max_levels:
 		current_level += 1
 		level_start_diamonds = total_diamonds
@@ -35,4 +40,17 @@ func reset_game():
 	total_diamonds = 0
 	level_start_diamonds = 0
 	current_level = 1
+
+func start_level(level: int):
+	# Démarre un niveau spécifique avec tous les diamants des niveaux précédents
+	if level < 1 or level > max_levels:
+		return
+	
+	current_level = level
+	# Si on commence au niveau N, on a déjà collecté N-1 diamants
+	total_diamonds = level - 1
+	level_start_diamonds = level - 1
+	diamond_collected.emit(total_diamonds)
+	level_changed.emit(current_level)
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/levels/Level" + str(current_level) + ".tscn")
 
