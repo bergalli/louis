@@ -8,9 +8,9 @@ func _ready():
 	music_player = AudioStreamPlayer.new()
 	add_child(music_player)
 	
-	# On charge la musique si elle existe
+	# On charge la musique
 	var music_path = "res://assets/audio/gladiator.mp3"
-	if FileAccess.file_exists(music_path):
+	if ResourceLoader.exists(music_path):
 		var stream = load(music_path)
 		# S'assurer que la musique boucle (en Godot 4, cela se fait sur le stream)
 		if stream is AudioStreamMP3:
@@ -19,7 +19,13 @@ func _ready():
 		music_player.bus = "Master"
 		music_player.play()
 	else:
-		print("En attente du fichier : assets/audio/gladiator.mp3")
+		print("Fichier de musique non trouvé : " + music_path)
+
+func _input(event):
+	# Sur le Web, l'audio est souvent bloqué jusqu'à une interaction utilisateur
+	if (event is InputEventMouseButton or event is InputEventScreenTouch or event is InputEventKey) and event.is_pressed():
+		if music_player and music_player.stream and not music_player.playing:
+			music_player.play()
 
 func play_music():
 	if music_player.stream and not music_player.playing:
