@@ -1,0 +1,120 @@
+[gd_scene load_steps=2 format=3 uid="uid://df7x4w3j6y7l3"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1"]
+size = Vector2(100, 100)
+
+[node name="MobileControls" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Movement" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -200.0
+offset_right = 340.0
+offset_bottom = -40.0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Left" type="TouchScreenButton" parent="Control/Movement"]
+position = Vector2(0, 0)
+scale = Vector2(1.2, 1.2)
+texture_normal = SubResource("PlaceholderTexture2D_1")
+passby_press = true
+action = "ui_left"
+visibility_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="Control/Movement/Left"]
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.392157)
+
+[node name="Label" type="Label" parent="Control/Movement/Left/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "<"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right" type="TouchScreenButton" parent="Control/Movement"]
+position = Vector2(160, 0)
+scale = Vector2(1.2, 1.2)
+texture_normal = SubResource("PlaceholderTexture2D_1")
+passby_press = true
+action = "ui_right"
+visibility_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="Control/Movement/Right"]
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.392157)
+
+[node name="Label" type="Label" parent="Control/Movement/Right/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = ">"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Actions" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -200.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Jump" type="TouchScreenButton" parent="Control/Actions"]
+position = Vector2(0, 0)
+scale = Vector2(1.5, 1.5)
+texture_normal = SubResource("PlaceholderTexture2D_1")
+action = "ui_accept"
+visibility_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="Control/Actions/Jump"]
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.392157)
+
+[node name="Label" type="Label" parent="Control/Actions/Jump/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "JUMP"
+horizontal_alignment = 1
+vertical_alignment = 1
+

@@ -1,0 +1,107 @@
+# .github/workflows/deploy-web.yml
+name: Build & Deploy Godot Web to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Export Godot (Web)
+        uses: firebelley/godot-export@v7.0.0
+        with:
+          # Required (otherwise it tries to download "http://")
+          godot_executable_download_url: "https://downloads.godotengine.org/?flavor=stable&platform=linux.64&slug=linux.x86_64.zip&version=4.3"
+          godot_export_templates_download_url: "https://downloads.godotengine.org/?flavor=stable&platform=templates&slug=export_templates.tpz&version=4.3"
+
+          relative_project_path: .
+          use_godot_3: false
+          presets_to_export: "Web"
+
+          cache: true
+          export_debug: false
+
+          # Keep output unarchived; we'll normalize into build/web ourselves
+          archive_output: false
+
+      - name: Normalize export outputs into build/web
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Prefer the action's standard output location (seen in logs)
+          CANDIDATE_DIR="/home/runner/.local/share/godot/builds/Web"
+
+          if [ -d "${CANDIDATE_DIR}" ] && [ -f "${CANDIDATE_DIR}/index.html" ]; then
+            EXPORT_DIR="${CANDIDATE_DIR}"
+          else
+            # Fallback: search for index.html under the godot working dir
+            EXPORT_INDEX="$(find /home/runner/.local/share/godot -type f -name 'index.html' | head -n 1 || true)"
+            if [ -z "${EXPORT_INDEX}" ]; then
+              echo "ERROR: No index.html found under /home/runner/.local/share/godot"
+              echo "Debug listing (first 200 files):"
+              find /home/runner/.local/share/godot -maxdepth 6 -type f | head -n 200
+              exit 1
+            fi
+            EXPORT_DIR="$(dirname "${EXPORT_INDEX}")"
+          fi
+
+          echo "Export dir: ${EXPORT_DIR}"
+
+          mkdir -p build/web
+          # Copy everything the web export produced (html, js, wasm, pck, worklet js, etc.)
+          cp -av "${EXPORT_DIR}/." build/web/
+
+          echo "Normalized build/web contents:"
+          ls -la build/web | head -n 200
+
+      - name: Add COI service worker (workaround for SharedArrayBuffer on Pages)
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd build/web
+
+          if [ ! -f index.html ]; then
+            echo "ERROR: build/web/index.html not found"
+            ls -la
+            exit 1
+          fi
+
+          curl -fsSL -o coi-serviceworker.js \
+            https://raw.githubusercontent.com/gzuidhof/coi-serviceworker.js/master/coi-serviceworker.js
+
+          if ! grep -q "coi-serviceworker.js" index.html; then
+            sed -i 's#</head>#  <script src="coi-serviceworker.js"></script>\n</head>#' index.html
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
