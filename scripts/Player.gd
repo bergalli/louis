@@ -27,8 +27,8 @@ func _on_diamond_collected(_count):
 
 func update_stats():
 	var effective_diamonds = GameManager.total_diamonds
-	# Au niveau 9, on ignore le bonus des diamants pour que ça aille "vite comme sans diamants"
-	if GameManager.current_level >= GameManager.max_levels:
+	# Au niveau 9 et au-delà, on ignore le bonus des diamants pour que ça aille "vite comme sans diamants"
+	if GameManager.current_level >= 9:
 		effective_diamonds = 0
 		
 	speed = base_speed + (effective_diamonds * speed_per_diamond)

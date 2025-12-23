@@ -59,5 +59,5 @@ func animate_outro():
 	tween.tween_interval(1.0)
 	tween.tween_callback(func(): label.text = "Les diamants sont de retour. Tu as gagné !")
 	tween.tween_interval(2.0)
-	tween.tween_callback(func(): get_tree().change_scene_to_file("res://scenes/VictoryScreen.tscn"))
+	tween.tween_callback(func(): get_tree().change_scene_to_file("res://scenes/ThiefScene.tscn"))
 

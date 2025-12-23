@@ -69,6 +69,6 @@ func _on_level_changed(level):
 	update_ui()
 
 func update_ui():
-	diamond_label.text = "Diamants: " + str(GameManager.total_diamonds) + "/9"
+	diamond_label.text = "Diamants: " + str(GameManager.total_diamonds) + "/12"
 	level_label.text = "Niveau: " + str(GameManager.current_level)
 

@@ -3,7 +3,7 @@ extends Node
 var total_diamonds = 0
 var level_start_diamonds = 0
 var current_level = 1
-var max_levels = 9
+var max_levels = 12
 
 signal diamond_collected(count)
 signal level_changed(level)
